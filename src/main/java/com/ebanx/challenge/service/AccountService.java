@@ -21,5 +21,11 @@ public class AccountService {
         return account.map(Account::getBalance).orElse(0.0);
     }
 
+       public Account deposit(String destinationid, Double amount){
+        Account account = repository.findById(destinationid).orElse(null);
+        account.setBalance(account.getBalance() + amount);
+        return repository.save(account);
+    }
+
 }
 
