@@ -16,8 +16,10 @@ public class EventController {
         this.service = service;
     }
 
-    public ResponseEntity<Doble> getBalance(@RequestParam("account_id") String accountID){
+    public ResponseEntity<Double> getBalance(@RequestParam("account_id") String accountID){
         Double balance = service.getBalance(accountID);
         return ResponseEntity.ok(balance);
     }
+
+ 
 }
