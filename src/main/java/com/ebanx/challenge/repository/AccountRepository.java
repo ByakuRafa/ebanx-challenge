@@ -26,5 +26,8 @@ public class AccountRepository {
         database.clear();
     }
 
+    public boolean exists(String id){
+        return database.containsKey(id);
+    }
    
 }
