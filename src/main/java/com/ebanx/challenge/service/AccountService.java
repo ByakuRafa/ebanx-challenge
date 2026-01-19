@@ -6,6 +6,7 @@ import com.ebanx.challenge.repository.AccountRepository;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.filter.UrlHandlerFilter.Builder.TrailingSlashSpec;
 
 @Service
 public class AccountService {
@@ -42,6 +43,9 @@ public class AccountService {
         Account account = accountOpt.get();
         account.setBalance(account.getBalance() - amount);
         return repository.save(account);        
+    }
+
+    public record TransferResult(Account origin, Account destination) {
     }
 
 }
