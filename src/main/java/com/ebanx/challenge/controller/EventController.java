@@ -59,10 +59,15 @@ public class EventController {
             return new ResponseEntity<>(Map.of("origin", result.origin(), "destination", result.destination()), HttpStatus.CREATED);
         }
 
-
         //out of scope requests
         return ResponseEntity.badRequest().build();
         
+    }
+
+    @PostMapping("/reset")
+    public ResponseEntity<String> reset(){
+        service.reset();
+        return ResponseEntity.ok("OK");
     }
  
 }
