@@ -27,5 +27,17 @@ public class AccountService {
         return repository.save(account);
     }
 
+    public Account withdraw(String destinationid, Double amount){
+        Optional<Account> accountOpt = repository.findById(destinationid);
+        
+        if (accountOpt.isEmpty()) {
+            return null;
+        }
+
+        Account account = accountOpt.get();
+        account.setBalance(account.getBalance() - amount);
+        return repository.save(account);        
+    }
+
 }
 

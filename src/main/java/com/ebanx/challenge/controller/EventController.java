@@ -37,7 +37,16 @@ public class EventController {
             var account = service.deposit(request.getDestination(), request.getAmount());
             return new ResponseEntity<>(Map.of("destination", account),HttpStatus.CREATED);
             
-        };
+        }
+
+        if("withdraw".equals(request.getType())){
+            var account = service.withdraw(request.getOrigin(), request.getAmount());
+            
+            if (account == null) {
+                return ResponseEntity.notFound().build();
+            }
+            return new ResponseEntity<>(Map.of("origin", account), HttpStatus.CREATED);
+        }
 
         //out of scope requests
         return ResponseEntity.badRequest().build();
