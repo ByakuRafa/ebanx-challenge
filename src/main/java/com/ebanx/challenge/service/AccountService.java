@@ -51,6 +51,10 @@ public class AccountService {
         return new TransferResult(origin, destination);
     }
 
+    public void reset(){
+        repository.clear();
+    }
+
 
     public record TransferResult(Account origin, Account destination) {
     }
