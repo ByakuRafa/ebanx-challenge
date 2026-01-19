@@ -19,6 +19,13 @@ public class EventControllerTest {
 @Autowired
     private MockMvc mockMvc;
 
+    // clean data in memory
+    @BeforeEach
+    void setup() throws Exception {
+        mockMvc.perform(post("/reset"))
+                .andExpect(status().isOk());
+    }
+
     @Test
     void shouldReturn404ForNonExistentAccount() throws Exception {
         mockMvc.perform(get("/balance?account_id=9999"))
