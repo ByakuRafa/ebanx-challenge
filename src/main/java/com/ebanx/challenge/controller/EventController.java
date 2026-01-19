@@ -46,7 +46,8 @@ public class EventController {
             
         }
 
-         else if("withdraw".equals(request.getType())){
+        //withdraw
+        else if("withdraw".equals(request.getType())){
             var account = service.withdraw(request.getOrigin(), request.getAmount());
             
             if (account == null) {
@@ -54,6 +55,15 @@ public class EventController {
             }
             return new ResponseEntity<>(Map.of("origin", account), HttpStatus.CREATED);
         }
+
+        else if("transfer".equals(request.getType())){
+            var result = service.transfer(request.getOrigin(), request.getDestination(), request.getAmount());
+            if (result == null){
+                return ResponseEntity.notFound().build();
+            }
+            return new ResponseEntity<>(Map.of("origin", result.origin(), "destination", result.destination()), HttpStatus.CREATED);
+        }
+
 
         //out of scope requests
         return ResponseEntity.badRequest().build();
