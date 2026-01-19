@@ -22,7 +22,12 @@ public class EventController {
 
     @GetMapping("/balance")
     public ResponseEntity<Double> getBalance(@RequestParam("account_id") String accountID){
+        System.out.print(accountID);
+        System.out.print("---->[Get Balance}");
+
         Double balance = service.getBalance(accountID);
+        System.out.println(balance);
+
         if (balance == null){
             return ResponseEntity.notFound().build();
         }
@@ -31,15 +36,17 @@ public class EventController {
 
     @PostMapping("/event")
     public ResponseEntity<Object> handleEvent(@RequestBody EventRequest request){
-        
         //deposit
         if ("deposit".equals(request.getType())){
+            System.out.print("request entred depoist IF\n");
             var account = service.deposit(request.getDestination(), request.getAmount());
+            System.out.print("Service invoqued\n");
+            
             return new ResponseEntity<>(Map.of("destination", account),HttpStatus.CREATED);
             
         }
 
-        if("withdraw".equals(request.getType())){
+         else if("withdraw".equals(request.getType())){
             var account = service.withdraw(request.getOrigin(), request.getAmount());
             
             if (account == null) {
