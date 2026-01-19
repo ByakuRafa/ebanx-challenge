@@ -23,9 +23,13 @@ public class EventController {
     @GetMapping("/balance")
     public ResponseEntity<Double> getBalance(@RequestParam("account_id") String accountID){
         Double balance = service.getBalance(accountID);
+        if (balance == null){
+            return ResponseEntity.notFound().build();
+        }
         return ResponseEntity.ok(balance);
     }
 
+    @PostMapping("/event")
     public ResponseEntity<Object> handleEvent(@RequestBody EventRequest request){
         
         //deposit

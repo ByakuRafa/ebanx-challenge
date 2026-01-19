@@ -18,8 +18,9 @@ public class AccountRepository {
         return Optional.of(null);
     }
 
-    public Account save(Account acciut){
-        return acciut;
+    public Account save(Account account){
+        database.put(account.getId(), account);
+        return account;
     }
 
     public void clear(){
