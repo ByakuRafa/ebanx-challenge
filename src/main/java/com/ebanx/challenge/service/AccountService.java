@@ -45,6 +45,18 @@ public class AccountService {
         return repository.save(account);        
     }
 
+    public TransferResult transfer(String originId, String destinationId, Double amount){
+      
+        Account origin = withdraw(originId, amount);
+        if (origin == null){
+            return null;
+        }
+        Account destination =  deposit(destinationId, amount);
+
+        return new TransferResult(origin, destination);
+    }
+
+
     public record TransferResult(Account origin, Account destination) {
     }
 
